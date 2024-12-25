@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "../style/history.css";
 import { account, database } from "../assets/Client";
 import { Query } from "appwrite";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function History() {
   const [loading, setLoading] = useState(true);
@@ -36,7 +38,12 @@ export default function History() {
         </div>
       ) : (
         <div className="container">
-          <h1>History</h1>
+          <Navbar />
+          <div className="navbar-in"></div>
+          <h2>History</h2>
+          <br />
+          <div className="h-content"></div>
+          <Footer />
         </div>
       )}
     </>
