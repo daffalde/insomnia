@@ -1,0 +1,43 @@
+.forum {
+  width: 100%;
+  border-collapse: collapse;
+}
+.forum thead tr {
+  border-radius: 5px;
+}
+.forum th {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+  border: 1px solid white;
+}
+.forum td {
+  height: 40px;
+  border-bottom: 1px solid grey;
+}
+.forum td:first-child {
+  text-align: center;
+  width: 5%;
+}
+.forum td:nth-child(2) {
+  padding: 0 5px;
+}
+.forum td:last-child {
+  text-align: center;
+}
+.forum td:last-child label {
+  margin-right: 10px;
+}
+
+.submitt {
+  background-color: rgb(0, 0, 0, 0.5);
+  pointer-events: none;
+  cursor: not-allowed;
+  margin: 20px 0;
+}
+.submit-on {
+  background-color: black;
+  pointer-events: all;
+  cursor: pointer;
+}
