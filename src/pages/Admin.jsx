@@ -27,7 +27,7 @@ export default function Admin() {
     cek();
   }, []);
 
-  const [button, setButton] = useState("Result");
+  const [button, setButton] = useState("User");
 
   // user pop up
   const [popUser, setPopUser] = useState(false);
