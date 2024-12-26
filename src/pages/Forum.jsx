@@ -104,7 +104,6 @@ export default function Forum() {
 
     console.log(selectedTrueValues);
     console.log("Tingkat Keparahan Insomnia:", insomniaLevel);
-    setTingkat(insomniaLevel);
 
     try {
       const resp = await account.get();
