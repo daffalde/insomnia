@@ -2,6 +2,7 @@
   width: 100%;
   height: calc(100vh - 100px);
   display: grid;
+  gap: 20px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .h-c-list {
@@ -16,6 +17,7 @@
   align-items: start;
   transition: 0.3s;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 .h-c-list:hover {
   transform: scale(1.05);
