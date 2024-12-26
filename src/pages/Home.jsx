@@ -86,9 +86,9 @@ export default function Home() {
           <div className="navbar-in"></div>
           <div className="head">
             <h1>
-              Mengatasi Insomnia
+              Mengetahui Insomnia
               <br />
-              Secara Alami
+              Secara Cepat
             </h1>
             <p>
               Rasakan tidur yang lebih nyenyak dengan sistem pakar kami yang

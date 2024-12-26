@@ -38,7 +38,19 @@ p {
   justify-content: center;
   align-items: center;
 }
+.loading2 {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .loading1 img {
+  width: 50px;
+  animation: loading 3s infinite linear;
+}
+.loading2 img {
   width: 50px;
   animation: loading 3s infinite linear;
 }

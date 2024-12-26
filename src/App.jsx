@@ -6,6 +6,7 @@ import { account, database } from "./assets/Client";
 import { useEffect } from "react";
 import { ID, Query } from "appwrite";
 import History from "./pages/History";
+import Admin from "./pages/Admin";
 
 function App() {
   async function getUser() {
@@ -46,6 +47,7 @@ function App() {
           <Route path="/" Component={Home} />
           <Route path="/forum" Component={Forum} />
           <Route path="/history" Component={History} />
+          <Route path="/dashboard" Component={Admin} />
         </Routes>
       </BrowserRouter>
     </>

@@ -4,8 +4,10 @@ import { ID, Query } from "appwrite";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../style/forum.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Forum() {
+  const nav = useNavigate();
   const [loading, setLoading] = useState(true);
   const [forum, setForum] = useState([]);
   const [selectedValues, setSelectedValues] = useState({}); // State untuk menyimpan nilai radio button
@@ -14,6 +16,7 @@ export default function Forum() {
   async function getForum() {
     setLoading(true);
     try {
+      await account.get();
       const resp = await database.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE,
         import.meta.env.VITE_APPWRITE_RULE
@@ -22,6 +25,8 @@ export default function Forum() {
       setForum(resp.documents);
     } catch (e) {
       console.error(e);
+      alert("Your must login to access");
+      nav("/");
     } finally {
       setLoading(false);
     }
@@ -126,6 +131,7 @@ export default function Forum() {
     } catch (e) {
       console.error();
     } finally {
+      nav("/history");
       setLoading(false);
     }
   };

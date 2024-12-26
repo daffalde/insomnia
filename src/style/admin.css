@@ -1,0 +1,62 @@
+.admin {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+.a-sidebar {
+  width: 300px;
+  height: 100vh;
+  background-color: #16283c;
+  color: white;
+  padding: 20px;
+}
+.a-sidebar span {
+  display: flex;
+  flex-direction: column;
+}
+.a-sidebar span button {
+  background-color: transparent;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.a-sidebar span button:hover {
+  background-color: #244265;
+}
+.a-c-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgb(0, 0, 0, 0.2);
+}
+
+.a-content {
+  width: calc(100% - 300px);
+  height: 100vh;
+}
+.a-c-body {
+  width: 100%;
+  height: calc(100% - 60px);
+  overflow: auto;
+  padding: 20px;
+}
+
+.admin-tab {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin-tab thead {
+  background-color: black;
+  height: 40px;
+  color: white;
+}
+.admin-tab thead tr th {
+  border: 1px solid white;
+}
+.admin-tab td {
+  text-align: center;
+  border-bottom: 1px solid grey;
+  padding: 10px 0;
+}
