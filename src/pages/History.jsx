@@ -46,7 +46,8 @@ export default function History() {
     try {
       const resp = await database.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE,
-        import.meta.env.VITE_APPWRITE_RESULT
+        import.meta.env.VITE_APPWRITE_RESULT,
+        [Query.limit(500)]
       );
       const filteredResp = resp.documents.filter((el) => {
         return el.result_key === key;
@@ -96,6 +97,7 @@ export default function History() {
                   className="h-c-list"
                 >
                   <h2>{e.kerusakan[0].kerusakan_name},...</h2>
+                  <p>{e.result_key}</p>
                   <br /> <br />
                   <p>{e.user[0].user_email}</p>
                   <p style={{ color: "grey" }}>{e.$createdAt.split("T")[0]}</p>
