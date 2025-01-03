@@ -17,7 +17,8 @@ export default function History() {
       const user = await account.get();
       const resp = await database.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE,
-        import.meta.env.VITE_APPWRITE_RESULT
+        import.meta.env.VITE_APPWRITE_RESULT,
+        [Query.limit(500)]
       );
       const filtering = resp.documents.filter(
         (e) => e.user[0].user_email === user.email
@@ -59,10 +60,16 @@ export default function History() {
     }
   }
 
-  const uniqueItems = result.reduce((acc, currentItem) => {
+  const mergedResults = result.reduce((acc, currentItem) => {
     const currentDate = currentItem.result_key;
-    if (!acc.find((item) => item.result_key === currentDate)) {
-      acc.push(currentItem);
+    const existingItem = acc.find((item) => item.result_key === currentDate);
+
+    if (existingItem) {
+      existingItem.kerusakan.push(...currentItem.kerusakan);
+      existingItem.solusi.push(...currentItem.solusi);
+      existingItem.rule.push(...currentItem.rule);
+    } else {
+      acc.push({ ...currentItem });
     }
     return acc;
   }, []);
@@ -80,7 +87,7 @@ export default function History() {
           <h2>History</h2>
           <br />
           <div className="h-content">
-            {uniqueItems
+            {mergedResults
               .sort((a, b) => new Date(b.$createdAt) - new Date(a.$createdAt))
               .map((e) => (
                 <div
