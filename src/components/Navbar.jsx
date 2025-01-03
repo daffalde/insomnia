@@ -58,17 +58,22 @@ export default function Navbar() {
       <div className="navbar">
         <h2
           onClick={() => nav("/")}
-          style={{ color: "#5046E4", cursor: "pointer" }}
+          style={{ color: "#FF8B00", cursor: "pointer" }}
         >
-          Insomnia
+          GadRescue
         </h2>
         <ul>
           <li>
+            <div className="dot"></div>
             <Link to={"/"}>Home</Link>
           </li>
           <li>
-            <Link to={"/forum"}>Konsultasi</Link>
+            <div className="dot"></div>
+
+            <Link to={"/forum"}>Forum</Link>
           </li>
+        </ul>
+        <ul>
           <li>
             {user ? (
               <div onClick={() => setPopUser(true)} className="n-auth-on">
@@ -81,8 +86,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="n-auth">
-                <button onClick={() => auth()}>Masuk</button>
-                <Link onClick={() => auth()}>Daftar</Link>
+                <button onClick={() => auth()}>Get Started</button>
               </div>
             )}
           </li>

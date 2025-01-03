@@ -1,75 +1,103 @@
-.head {
+.first {
   width: 100%;
   height: calc(100vh - 64px);
-  background-image: url("/head.jpg");
-  background-size: cover;
-  background-position: bottom;
   position: absolute;
   left: 0;
+  background-color: white;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  text-align: center;
-  color: white;
 }
-.head-in {
+.first-in {
+  width: 1440px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 100px;
+  color: #444444;
+}
+.f-right {
+  width: 120%;
+}
+.f-right img {
+  width: 100%;
+  border-radius: 10px;
+}
+.first button {
+  width: 70%;
+  height: 50px;
+}
+.first-out {
   width: 100%;
   height: calc(100vh - 64px);
 }
-.head button {
-  padding: 10px 20px;
-  color: black;
-  background-color: white;
-}
-
-.feature {
+/* _____________________________________ */
+.second {
   width: 100%;
-  height: 332px;
-  background-color: #f9fafb;
+  height: 100vh;
+  padding: 50px 0;
+  background-color: #feffdb;
+  position: absolute;
+  left: 0;
+  display: grid;
+}
+.second-in {
+  place-self: center;
+  width: 1440px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 100px;
+  gap: 20px;
+  color: #444444;
 }
-.f-content {
+.second-in2 {
+  place-self: center;
+  width: 1440px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ff8b00;
+  gap: 20px;
+}
+.s-left {
+  width: 130%;
+}
+.s-left img {
+  width: 100%;
+  border-radius: 10px;
+}
+.s-right {
+  border: 3px solid #ff8b00;
+  height: 100%;
+  padding: 30px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: start;
+}
+.s-r-button {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
   gap: 10px;
 }
-.explain {
+.s-r-button button {
   width: 100%;
-  height: 80vh;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 100px;
-  margin: 50px 0;
+  height: 50px;
 }
-.e-desc {
+.s-r-button button:last-child {
+  background-color: transparent;
+  border: 2px solid #ff8b00;
+  color: #ff8b00;
+}
+.second-out {
   width: 100%;
-  text-align: justify;
-}
-.explain img {
-  width: 30vw;
-}
-
-.works {
-  width: 100%;
-  height: 476px;
-  background-color: #f9fafb;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.w-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 50px;
-  padding: 50px 0;
+  height: 100vh;
 }

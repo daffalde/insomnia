@@ -6,7 +6,7 @@
 .a-sidebar {
   width: 300px;
   height: 100vh;
-  background-color: #16283c;
+  background-color: #ff8b00;
   color: white;
   padding: 20px;
 }
@@ -21,7 +21,7 @@
   align-items: center;
 }
 .a-sidebar span button:hover {
-  background-color: #244265;
+  background-color: #c96f01;
 }
 .a-c-head {
   display: flex;

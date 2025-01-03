@@ -7,9 +7,26 @@ export default function Footer() {
         <div className="footer-in">
           <div className="f-up">
             <div className="f-u-1">
-              <h2 style={{ color: "#5046E4" }}>Insomnia</h2>
-              <p>Expert sleep solutions for a better tomorrow.</p>
+              <h2 style={{ color: "#5046E4" }}>GadRescue</h2>
+              <p>Comprehensive Phone Repair Solutions for a Brighter Future.</p>
             </div>
+            <ul>
+              <li>
+                <h5>Contact</h5>
+              </li>
+              <li>
+                <img src="./location.svg" alt="location" />
+                <p>DIY Yogyakarta</p>
+              </li>
+              <li>
+                <img src="./phone.svg" alt="location" />
+                <p>0855 9769 0921</p>
+              </li>
+              <li>
+                <img src="./mail.svg" alt="location" />
+                <p>GadRescue@gmail.com</p>
+              </li>
+            </ul>
             <ul>
               <li>
                 <h5>Quick Links</h5>
@@ -24,23 +41,7 @@ export default function Footer() {
                 <Link to={"/login"}>Autentikasi</Link>
               </li>
             </ul>
-            <ul>
-              <li>
-                <h5>Contact</h5>
-              </li>
-              <li>
-                <img src="./location.svg" alt="location" />
-                <p>DIY Yogyakarta</p>
-              </li>
-              <li>
-                <img src="./phone.svg" alt="location" />
-                <p>0812 1234 4321</p>
-              </li>
-              <li>
-                <img src="./mail.svg" alt="location" />
-                <p>insomnia@gmail.com</p>
-              </li>
-            </ul>
+
             <ul>
               <li>
                 <h5>Follow us</h5>
@@ -62,7 +63,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="f-down">
-            <p>2024 Insomnia. All rights reserved.</p>
+            <p>2024 GadRescue. All rights reserved.</p>
           </div>
         </div>
       </div>

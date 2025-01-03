@@ -6,15 +6,15 @@
   border-radius: 5px;
 }
 .forum th {
-  background-color: black;
-  color: white;
+  background-color: #444444;
+  color: #ffc60b;
   text-align: center;
   padding: 5px 0;
-  border: 1px solid white;
+  border: 2px solid #444444;
 }
 .forum td {
   height: 40px;
-  border-bottom: 1px solid grey;
+  border: 2px solid #44444431;
 }
 .forum td:first-child {
   text-align: center;
@@ -37,7 +37,7 @@
   margin: 20px 0;
 }
 .submit-on {
-  background-color: black;
+  background-color: #444444;
   pointer-events: all;
   cursor: pointer;
 }

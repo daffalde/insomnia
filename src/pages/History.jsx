@@ -10,7 +10,7 @@ export default function History() {
   const [loading, setLoading] = useState(true);
   const nav = useNavigate();
 
-  const [result, setResult] = useState();
+  const [result, setResult] = useState([]);
   async function getResult() {
     setLoading(true);
     try {
@@ -26,7 +26,7 @@ export default function History() {
       setResult(filtering);
     } catch (e) {
       console.error(e);
-      alert("You must loggin to access");
+      alert("You must log in to access");
       nav("/");
     } finally {
       setLoading(false);
@@ -38,22 +38,35 @@ export default function History() {
 
   // pop up
   const [pop, setPop] = useState(false);
-  const [klik, setKlik] = useState();
+  const [klik, setKlik] = useState(null);
 
-  async function kliker(e) {
+  async function kliker(key) {
+    console.log("key =", key);
     try {
-      const resp = await database.getDocument(
+      const resp = await database.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE,
-        import.meta.env.VITE_APPWRITE_RESULT,
-        e
+        import.meta.env.VITE_APPWRITE_RESULT
       );
-      setKlik(resp);
+      const filteredResp = resp.documents.filter((el) => {
+        return el.result_key === key;
+      });
+      console.log(filteredResp);
+      setKlik(filteredResp);
     } catch (e) {
       console.error(e);
     } finally {
       setPop(true);
     }
   }
+
+  const uniqueItems = result.reduce((acc, currentItem) => {
+    const currentDate = currentItem.result_key;
+    if (!acc.find((item) => item.result_key === currentDate)) {
+      acc.push(currentItem);
+    }
+    return acc;
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -67,35 +80,48 @@ export default function History() {
           <h2>History</h2>
           <br />
           <div className="h-content">
-            {result.map((e, i) => (
-              <div onClick={() => kliker(e.$id)} key={i} className="h-c-list">
-                <h2>{e.tier[0].tier_name}</h2>
-                <br />
-                <br />
-                <p>{e.user[0].user_email}</p>
-                <p style={{ color: "grey" }}>{e.$createdAt.split("T")[0]}</p>
-              </div>
-            ))}
+            {uniqueItems
+              .sort((a, b) => new Date(b.$createdAt) - new Date(a.$createdAt))
+              .map((e) => (
+                <div
+                  onClick={() => kliker(e.result_key)}
+                  key={e.result_key}
+                  className="h-c-list"
+                >
+                  <h2>{e.kerusakan[0].kerusakan_name},...</h2>
+                  <br /> <br />
+                  <p>{e.user[0].user_email}</p>
+                  <p style={{ color: "grey" }}>{e.$createdAt.split("T")[0]}</p>
+                </div>
+              ))}
           </div>
+
           <Footer />
 
-          {pop && (
+          {pop && klik && (
             <>
               <div onClick={() => setPop(false)} className="pop-bg"></div>
               <div className="pop">
                 <h2>Detail Gejala</h2>
-                <p style={{ color: "grey" }}>{klik.$createdAt.split("T")[0]}</p>
-                <br />
-                <br />
-                <p style={{ fontSize: "13px", color: "grey" }}>Tingkat:</p>
-                <h3>{klik.tier[0].tier_name}</h3>
-                <br />
-                <p style={{ fontSize: "13px", color: "grey" }}>Penjelasan:</p>
-                <p>{klik.tier[0].tier_desc}</p>
-                <br />
-                <p style={{ fontSize: "13px", color: "grey" }}>Penanganan:</p>
-                <p>{klik.tier[0].tier_advice}</p>
-                <br />
+                {klik.map((e, i) => (
+                  <>
+                    <div className="klikklik" key={i}>
+                      <p style={{ fontSize: "13px", color: "grey" }}>
+                        Masalah:
+                      </p>
+                      <h3>{e.rule[0].rule_gejala}</h3>
+                      <br />
+                      <p style={{ fontSize: "13px", color: "grey" }}>
+                        Kerusakan:
+                      </p>
+                      <h3>{e.kerusakan[0].kerusakan_name}</h3>
+                      <br />
+                      <p style={{ fontSize: "13px", color: "grey" }}>Solusi:</p>
+                      <p>{e.solusi[0].solusi_name}</p>
+                    </div>
+                    <br />
+                  </>
+                ))}
               </div>
             </>
           )}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { database } from "../assets/Client";
 import "../style/admin.css";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 
 export default function Result() {
   const [loading, setLoading] = useState(true);
@@ -9,6 +9,8 @@ export default function Result() {
   //   data
   const [tier, setTier] = useState();
   const [user, setUser] = useState();
+  const [kerusakan, setKerusakan] = useState();
+  const [solusi, setSolusi] = useState();
 
   const [data, setData] = useState();
   async function getData() {
@@ -16,20 +18,30 @@ export default function Result() {
     try {
       const resp = await database.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE,
-        import.meta.env.VITE_APPWRITE_RESULT
+        import.meta.env.VITE_APPWRITE_RESULT,
+        [Query.limit(100)]
       );
       const resp1 = await database.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE,
-        import.meta.env.VITE_APPWRITE_TIER
+        import.meta.env.VITE_APPWRITE_RULE
       );
       const resp2 = await database.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE,
         import.meta.env.VITE_APPWRITE_USER
       );
+      const resp3 = await database.listDocuments(
+        import.meta.env.VITE_APPWRITE_DATABASE,
+        import.meta.env.VITE_APPWRITE_KERUSAKAN
+      );
+      const resp4 = await database.listDocuments(
+        import.meta.env.VITE_APPWRITE_DATABASE,
+        import.meta.env.VITE_APPWRITE_SOLUSI
+      );
 
       setTier(resp1.documents);
       setUser(resp2.documents);
-      console.log(resp.documents);
+      setKerusakan(resp3.documents);
+      setSolusi(resp4.documents);
       setData(resp.documents);
     } catch (e) {
       console.error(e);
@@ -62,6 +74,8 @@ export default function Result() {
 
   const [tierr, setTierr] = useState();
   const [userr, setUserr] = useState();
+  const [kerusakann, setKerusakann] = useState();
+  const [solusii, setSolusii] = useState();
   async function handleAddd(e) {
     e.preventDefault();
     try {
@@ -70,14 +84,17 @@ export default function Result() {
         import.meta.env.VITE_APPWRITE_RESULT,
         ID.unique(),
         {
-          tier: [tierr],
+          kerusakan: [kerusakann],
+          solusi: [solusii],
+          rule: [tierr],
           user: [userr],
+          result_key: data.length + 1,
         }
       );
     } catch (e) {
       console.error(e);
     } finally {
-      window.location.reload();
+      getData();
     }
   }
 
@@ -93,6 +110,7 @@ export default function Result() {
         import.meta.env.VITE_APPWRITE_RESULT,
         e
       );
+      console.log(resp);
       setEditData(resp);
       setEditId(e);
     } catch (e) {
@@ -110,7 +128,9 @@ export default function Result() {
         import.meta.env.VITE_APPWRITE_RESULT,
         editId,
         {
-          tier: [tierr],
+          kerusakan: [kerusakann],
+          solusi: [solusii],
+          rule: [tierr],
           user: [userr],
         }
       );
@@ -137,7 +157,7 @@ export default function Result() {
               <tr>
                 <th style={{ width: "20%" }}>Id</th>
                 <th>User</th>
-                <th>Tier</th>
+                <th>Kerusakan</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -146,7 +166,7 @@ export default function Result() {
                 <tr key={i} className="user-list">
                   <td>{e.$id}</td>
                   <td>{e.user[0].user_email}</td>
-                  <td>{e.tier[0].tier_name}</td>
+                  <td>{e.kerusakan[0].kerusakan_name}</td>
                   <td>
                     <button onClick={() => showEdit(e.$id)}>Edit</button>
                     <button onClick={() => handleDelete(e.$id)}>Delete</button>
@@ -167,19 +187,42 @@ export default function Result() {
                 <h2>Input Data</h2>
                 <br />
                 <form onSubmit={handleAddd}>
-                  <p style={{ color: "grey", fontSize: "13px" }}>Tier : </p>
+                  <p style={{ color: "grey", fontSize: "13px" }}>Kondisi : </p>
                   <select onChange={(e) => setTierr(e.target.value)}>
-                    <option value="#">Select Tier</option>
+                    <option value="#">Select Kondisi</option>
                     {tier.map((e, i) => (
                       <option value={e.$id} key={i}>
-                        {e.tier_name}
+                        {e.rule_gejala}
+                      </option>
+                    ))}
+                  </select>
+                  <br />
+                  <br />
+                  <p style={{ color: "grey", fontSize: "13px" }}>
+                    Kerusakan :{" "}
+                  </p>
+                  <select onChange={(e) => setKerusakann(e.target.value)}>
+                    <option value="#">Select Kerusakan</option>
+                    {kerusakan.map((e, i) => (
+                      <option value={e.$id} key={i}>
+                        {e.kerusakan_name}
+                      </option>
+                    ))}
+                  </select>
+                  <br />
+                  <br />
+                  <p style={{ color: "grey", fontSize: "13px" }}>Solusi : </p>
+                  <select onChange={(e) => setSolusii(e.target.value)}>
+                    <option value="#">Select Solusi</option>
+                    {solusi.map((e, i) => (
+                      <option value={e.$id} key={i}>
+                        {e.solusi_name}
                       </option>
                     ))}
                   </select>
                   <br />
                   <br />
                   <p style={{ color: "grey", fontSize: "13px" }}>User : </p>
-
                   <select onChange={(e) => setUserr(e.target.value)}>
                     <option value="#">Select User</option>
                     {user.map((e, i) => (
@@ -208,13 +251,39 @@ export default function Result() {
                 <br />
                 <form onSubmit={handleEdit}>
                   <p style={{ color: "grey", fontSize: "13px" }}>
-                    Tier : {editData.tier[0].tier_name}
+                    Kondisi : {editData.rule[0].rule_gejala}
                   </p>
                   <select onChange={(e) => setTierr(e.target.value)}>
-                    <option value="#">Select Tier</option>
+                    <option value="#">Select Kondisi</option>
                     {tier.map((e, i) => (
                       <option value={e.$id} key={i}>
-                        {e.tier_name}
+                        {e.rule_gejala}
+                      </option>
+                    ))}
+                  </select>
+                  <br />
+                  <br />
+                  <p style={{ color: "grey", fontSize: "13px" }}>
+                    Kerusakan : {editData.kerusakan[0].kerusakan_name}
+                  </p>
+                  <select onChange={(e) => setKerusakann(e.target.value)}>
+                    <option value="#">Select Kerusakan</option>
+                    {kerusakan.map((e, i) => (
+                      <option value={e.$id} key={i}>
+                        {e.kerusakan_name}
+                      </option>
+                    ))}
+                  </select>
+                  <br />
+                  <br />
+                  <p style={{ color: "grey", fontSize: "13px" }}>
+                    Solusi : {editData.solusi[0].solusi_name}
+                  </p>
+                  <select onChange={(e) => setSolusii(e.target.value)}>
+                    <option value="#">Select Solusi</option>
+                    {solusi.map((e, i) => (
+                      <option value={e.$id} key={i}>
+                        {e.solusi_name}
                       </option>
                     ))}
                   </select>

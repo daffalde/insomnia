@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Forum from "./pages/Forum";
@@ -14,11 +14,22 @@ function App() {
       const user = await account.get();
       if (user) {
         try {
-          await database.listDocuments(
+          const resp = await database.listDocuments(
             import.meta.env.VITE_APPWRITE_DATABASE,
             import.meta.env.VITE_APPWRITE_USER,
             [Query.contains("user_email", user.email)]
           );
+          if (resp.total === 0) {
+            await database.createDocument(
+              import.meta.env.VITE_APPWRITE_DATABASE,
+              import.meta.env.VITE_APPWRITE_USER,
+              ID.unique(),
+              {
+                user_email: user.email,
+                user_name: user.name,
+              }
+            );
+          }
         } catch (e) {
           await database.createDocument(
             import.meta.env.VITE_APPWRITE_DATABASE,
